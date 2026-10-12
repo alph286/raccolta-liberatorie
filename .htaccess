@@ -1,8 +1,13 @@
 # Blocca file sensibili
 <FilesMatch "^(config(\.sample)?\.php|schema\.sql|README\.md)$">
-  Require all denied
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
 </FilesMatch>
-Options -Indexes
 # Forza HTTPS (decommentare quando il certificato e' attivo)
 # RewriteEngine On
 # RewriteCond %{HTTPS} off
