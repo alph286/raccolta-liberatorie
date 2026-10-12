@@ -1,0 +1,9 @@
+# Blocca file sensibili
+<FilesMatch "^(config(\.sample)?\.php|schema\.sql|README\.md)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
+# Forza HTTPS (decommentare quando il certificato e' attivo)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

@@ -1,0 +1,5 @@
+config.php
+storage/firme/*
+storage/pdf/*
+storage/installed.lock
+!storage/**/.gitkeep
