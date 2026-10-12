@@ -6,7 +6,7 @@ per l'uso di foto, video e audio. Richiede le estensioni PHP `pdo_mysql`, `gd`, 
 ## Funzioni
 - Modulo pubblico: dati anagrafici, consensi (immagini, audio, diffusione, privacy), dichiarazione di maggiore eta', **firma su schermo**.
 - Alla firma: PDF generato (testo accettato + dati + firma + data/ora/IP + impronta SHA-256 del testo), salvato in `storage/`, inviato via email all'intervistato e alla redazione, scaricabile dalla pagina di ringraziamento.
-- Area admin (`/admin/`): elenco con ricerca/filtri/paginazione, dettaglio, download PDF, export CSV, cambio password.
+- Area admin (`/admin/`): elenco con ricerca/filtri/paginazione, dettaglio, download PDF, export CSV, gestione utenti admin (crea, reimposta password, elimina), cambio password.
 - Modelli di liberatoria multipli (`/?t=slug`) con **versioning**: ogni modifica crea una nuova versione; le liberatorie firmate conservano il testo esatto accettato.
 - Sicurezza: query preparate, CSRF, honeypot anti-bot, rate limit login (5 tentativi/15 min), cookie di sessione httpOnly/secure/SameSite, header CSP, `storage/` e `lib/` negati via `.htaccess`.
 
