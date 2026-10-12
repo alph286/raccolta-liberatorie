@@ -3,7 +3,10 @@ declare(strict_types=1);
 // Installer: crea le tabelle, il primo admin e un modello di esempio. Si blocca da solo dopo l'uso.
 // DOPO L'INSTALLAZIONE CANCELLARE QUESTO FILE.
 require_once __DIR__ . '/lib/bootstrap.php';
-$lock = ROOT . '/storage/installed.lock';
+$lock = ROOT . '/installed.lock';
+$sdir = storage_path();
+foreach ([$sdir, $sdir . '/pdf', $sdir . '/firme'] as $d) { if (!is_dir($d)) @mkdir($d, 0750, true); }
+if (!is_writable($sdir . '/pdf') || !is_writable($sdir . '/firme')) { http_response_code(500); exit('Cartella storage non scrivibile: ' . h($sdir)); }
 if (is_file($lock)) { http_response_code(403); exit('Gia\' installato. Cancella install.php dal server.'); }
 $err = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

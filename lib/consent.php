@@ -77,7 +77,7 @@ function save_consent(array $tpl, array $d, string $png, string $jpeg): string {
     $token = bin2hex(random_bytes(16));
     $pdo = db();
     $firmaFile = $token . '.png';
-    file_put_contents(ROOT . '/storage/firme/' . $firmaFile, $png);
+    file_put_contents(storage_path('firme') . '/' . $firmaFile, $png);
     $row = $d + [
         'token' => $token, 'template_id' => $tpl['id'], 'template_titolo' => $tpl['titolo'],
         'template_versione' => $tpl['versione'], 'testo_snapshot' => $tpl['testo'],
@@ -92,7 +92,7 @@ function save_consent(array $tpl, array $d, string $png, string $jpeg): string {
 
     $pdfData = build_consent_pdf($row, $jpeg);
     $pdfFile = $token . '.pdf';
-    file_put_contents(ROOT . '/storage/pdf/' . $pdfFile, $pdfData);
+    file_put_contents(storage_path('pdf') . '/' . $pdfFile, $pdfData);
     $pdo->prepare('UPDATE consents SET pdf_file = ? WHERE id = ?')->execute([$pdfFile, $row['id']]);
 
     $ok = false;

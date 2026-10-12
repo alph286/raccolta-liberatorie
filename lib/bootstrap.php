@@ -26,6 +26,12 @@ header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'; form-action 'self'");
 
+/** Cartella dei file riservati (PDF, firme). Configurabile con 'storage_dir', idealmente fuori dalla document root. */
+function storage_path(string $sub = ''): string {
+    $base = rtrim((string)(cfg('storage_dir') ?: ROOT . '/storage'), '/');
+    return $sub === '' ? $base : $base . '/' . $sub;
+}
+
 function cfg(string $k, $default = null) { return $GLOBALS['cfg'][$k] ?? $default; }
 
 function db(): PDO {

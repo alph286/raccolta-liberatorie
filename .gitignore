@@ -1,5 +1,5 @@
 config.php
 storage/firme/*
 storage/pdf/*
-storage/installed.lock
+installed.lock
 !storage/**/.gitkeep
