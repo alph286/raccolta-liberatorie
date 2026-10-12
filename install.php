@@ -16,16 +16,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach (array_filter(array_map('trim', explode(';', file_get_contents(ROOT . '/schema.sql')))) as $sql) $pdo->exec($sql);
         $pdo->prepare('INSERT INTO admins (username,password_hash,created_at) VALUES (?,?,NOW())')->execute([$user, password_hash($pass, PASSWORD_DEFAULT)]);
         if ((int)$pdo->query('SELECT COUNT(*) FROM templates')->fetchColumn() === 0) {
-            $testo = <<<TXT
+            $testo = <<<'TXT'
 LIBERATORIA PER L'UTILIZZO DI IMMAGINI, VIDEO E REGISTRAZIONI AUDIO
 
-[TESTO DI ESEMPIO: farlo revisionare da un legale e sostituirlo con quello della liberatoria in uso dal menu "Modelli".]
+Il/La sottoscritto/a, i cui dati anagrafici sono indicati nel presente modulo, dichiarando di essere maggiorenne e nel pieno possesso delle proprie capacità,
 
-Il/La sottoscritto/a, con la presente, AUTORIZZA a titolo gratuito l'ente titolare delle riprese a effettuare fotografie, riprese video e registrazioni audio che lo/la ritraggono, e a utilizzarle, riprodurle e diffonderle - integralmente o in parte - per finalita' didattiche, divulgative, culturali, documentaristiche e promozionali, su qualsiasi supporto e canale (sito web, social network, stampa, eventi, trasmissioni), senza limiti di tempo e di territorio.
+PREMESSO CHE
 
-L'autorizzazione non consente un uso lesivo della dignita', del decoro e della reputazione della persona ripresa. Resta fermo il diritto di revocare il consenso per il futuro scrivendo al titolare del trattamento.
+la Scuola di Nuove Tecnologie dell'Arte - Accademia di Belle Arti di Napoli (di seguito "il Titolare"), con sede in Via S. Maria di Costantinopoli, 107, 80138 Napoli (NA), realizza riprese fotografiche, video e registrazioni audio nell'ambito delle proprie attività di ricerca, didattica, divulgazione e documentazione, e che il/la sottoscritto/a è stato/a ripreso/a o intervistato/a nel progetto indicato nel presente modulo;
 
-INFORMATIVA PRIVACY (art. 13 Reg. UE 2016/679): i dati personali raccolti con questo modulo saranno trattati dal titolare esclusivamente per la gestione della presente liberatoria e per gli obblighi di legge, conservati per il tempo necessario e non ceduti a terzi, se non ai soggetti che collaborano alla realizzazione e diffusione dei materiali. L'interessato puo' esercitare i diritti di cui agli artt. 15-22 GDPR (accesso, rettifica, cancellazione, limitazione, opposizione, portabilita') contattando il titolare.
+AUTORIZZA
+
+1. Oggetto. Il Titolare a realizzare, conservare ed elaborare (anche mediante montaggio, ritaglio, sottotitolazione e trascrizione) fotografie, riprese video e registrazioni audio che ritraggono il/la sottoscritto/a o ne riproducono la voce, nonché le dichiarazioni rese durante l'intervista (di seguito "i Materiali"), nei limiti dei consensi specifici indicati nel modulo.
+
+2. Utilizzo. L'utilizzo e la diffusione dei Materiali, integralmente o in parte, per finalità didattiche, scientifiche, culturali, documentaristiche, informative e promozionali del Titolare, su qualsiasi supporto e canale: sito web, piattaforme video e social network, stampa, pubblicazioni, mostre, eventi, proiezioni e trasmissioni.
+
+3. Durata e territorio. L'autorizzazione non ha limiti di territorio e ha durata di 10 (dieci) anni dalla data di firma, salvo revoca ai sensi del punto 6.
+
+4. Gratuità. L'autorizzazione è prestata a titolo gratuito. Il/La sottoscritto/a dichiara di non avere nulla a pretendere, ora o in futuro, per l'utilizzo dei Materiali secondo quanto qui previsto.
+
+5. Tutela della dignità. L'utilizzo dei Materiali non deve avvenire in contesti lesivi della dignità, del decoro o della reputazione del/della sottoscritto/a, ai sensi dell'art. 10 c.c. e degli artt. 96 e 97 L. 633/1941. Il Titolare non cede i Materiali a terzi per usi commerciali diversi da quelli qui indicati.
+
+6. Revoca. Il/La sottoscritto/a può revocare in qualsiasi momento il consenso per il futuro scrivendo a nuovetecnologiedellarte@gmail.com. La revoca non pregiudica l'utilizzo già avvenuto né le copie già diffuse prima della revoca; il Titolare si impegna a non utilizzare i Materiali in nuove pubblicazioni e a rimuoverli, entro tempi ragionevoli, dai canali che controlla.
+
+7. Consensi separati. Il consenso all'uso di immagini/video, quello all'uso dell'audio e quello alla diffusione sono distinti e facoltativi tra loro. Resta fermo che senza almeno uno dei primi due non è possibile registrare la liberatoria.
+
+INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI (art. 13 Reg. UE 2016/679)
+
+- Titolare del trattamento: Scuola di Nuove Tecnologie dell'Arte - Accademia di Belle Arti di Napoli, Via S. Maria di Costantinopoli, 107, 80138 Napoli (NA), nuovetecnologiedellarte@gmail.com.
+- Dati trattati: dati anagrafici e di contatto forniti nel modulo, firma, indirizzo IP e data/ora di sottoscrizione, immagini, video e voce contenuti nei Materiali.
+- Finalità e base giuridica: (a) gestione e conservazione della presente liberatoria e dimostrazione del consenso prestato (obbligo di accountability, art. 6.1.c e 6.1.f GDPR); (b) utilizzo e diffusione dei Materiali secondo quanto autorizzato (consenso, art. 6.1.a GDPR).
+- Conservazione: i dati della liberatoria sono conservati per la durata dell'autorizzazione e, successivamente, per il tempo necessario a tutelare i diritti del Titolare (di regola 10 anni); i Materiali pubblicati restano disponibili fino a revoca o cessazione dell'autorizzazione.
+- Destinatari: personale autorizzato del Titolare e fornitori di servizi tecnici (hosting, posta elettronica) nominati responsabili del trattamento. I Materiali pubblicati online possono essere visibili a chiunque; i dati anagrafici non vengono diffusi.
+- Trasferimenti extra UE: possibili solo in caso di pubblicazione su piattaforme di terzi (es. social network), secondo le garanzie previste dal GDPR.
+- Diritti: accesso, rettifica, cancellazione, limitazione, opposizione, portabilità (artt. 15-22 GDPR) e revoca del consenso, scrivendo a nuovetecnologiedellarte@gmail.com. È possibile proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it).
+- Il conferimento dei dati è facoltativo, ma senza di essi non è possibile procedere con le riprese e la loro pubblicazione.
 TXT;
             $pdo->prepare('INSERT INTO templates (slug,titolo,testo,versione,attiva,created_at) VALUES (?,?,?,1,1,NOW())')
                 ->execute(['accademia', 'Liberatoria Accademia', $testo]);

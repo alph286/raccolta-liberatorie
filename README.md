@@ -14,7 +14,7 @@ per l'uso di foto, video e audio. Richiede le estensioni PHP `pdo_mysql`, `gd`, 
 1. Carica i file sul server (Apache + PHP 8.1+), crea un database MySQL vuoto.
 2. `cp config.sample.php config.php` e compila DB, email, nome dell'ente.
 3. Apri `https://.../install.php`, crea l'utente admin, poi **cancella `install.php`**.
-4. Admin > Modelli: sostituisci il testo di esempio con la tua liberatoria (**da far revisionare a un legale**).
+4. Admin > Modelli: il testo predefinito (durata 10 anni, titolare: Scuola di Nuove Tecnologie dell'Arte - ABA Napoli) si puo' modificare da qui; ogni modifica crea una nuova versione. Consigliata revisione legale/DPO.
 5. Attiva HTTPS e decommenta il redirect in `.htaccess`. Serve `AllowOverride All` su Apache.
 
 ## Note
