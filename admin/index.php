@@ -23,7 +23,7 @@ if (isset($_GET['csv'])) {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="liberatorie-' . date('Ymd') . '.csv"');
     $o = fopen('php://output', 'w'); fwrite($o, "\xEF\xBB\xBF");
-    $cols = ['id','created_at','template_titolo','template_versione','nome','cognome','data_nascita','luogo_nascita','codice_fiscale','indirizzo','email','telefono','progetto','luogo_riprese','data_riprese','consenso_immagini','consenso_audio','consenso_diffusione','consenso_privacy','ip'];
+    $cols = ['id','created_at','template_titolo','template_versione','nome','cognome','data_nascita','luogo_nascita','codice_fiscale','indirizzo','email','telefono','progetto','luogo_riprese','data_riprese','consenso_immagini','consenso_audio','consenso_diffusione','consenso_privacy','ip','operatore'];
     fputcsv($o, $cols, ';');
     // neutralizza formule Excel
     $safe = fn($v) => is_string($v) && $v !== '' && strpos('=+-@', $v[0]) !== false ? "'" . $v : $v;

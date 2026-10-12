@@ -160,6 +160,7 @@ function build_consent_pdf(array $c, string $firmaJpeg): string {
     $y += 92;
     $write('Accettata il ' . date('d/m/Y \a\l\l\e H:i', strtotime($c['created_at'])) . ' - IP ' . $c['ip'], 8.5, false, 2);
     $write('Impronta SHA-256 del testo accettato: ' . $c['testo_hash'], 7, false, 2);
+    if (!empty($c['operatore'])) $write('Raccolta dall\'operatore: ' . $c['operatore'], 8.5, false, 2);
     $write('Riferimento: ' . $c['token'], 7, false, 2);
     return $pdf->output();
 }

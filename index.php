@@ -3,6 +3,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/lib/consent.php';
 
 $slug = isset($_GET['t']) ? preg_replace('/[^a-z0-9-]/', '', strtolower((string)$_GET['t'])) : null;
+require_once __DIR__ . '/lib/auth.php';
+$operator = require_admin('?form=1' . ($slug ? '&t=' . $slug : ''));
 $tpl = find_template($slug);
 $errors = []; $v = [];
 
@@ -14,7 +16,7 @@ if ($tpl && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $sig = decode_signature((string)($_POST['firma'] ?? ''));
     if (!$sig) $errors['firma'] = 'La firma e\' obbligatoria';
     if (!$errors) {
-        $token = save_consent($tpl, $d, $sig[0], $sig[1]);
+        $token = save_consent($tpl, $d, $sig[0], $sig[1], $operator['username']);
         unset($_SESSION['csrf']);
         header('Location: ' . base_url() . 'grazie.php?r=' . $token);
         exit;
@@ -26,6 +28,7 @@ $chk = fn($k) => !empty($v[$k]) ? ' checked' : '';
 
 page_head($tpl ? $tpl['titolo'] : 'Liberatoria');
 echo '<main class="wrap">';
+echo '<nav class="top"><span>Operatore: <strong>' . h($operator['username']) . '</strong></span><span class="sp"></span><a href="' . h(base_url()) . 'admin/index.php">Area admin</a><a href="' . h(base_url()) . 'admin/logout.php">Esci</a></nav>';
 if (!$tpl) { echo '<h1>Liberatoria non disponibile</h1><p>Nessun modello attivo.</p></main>'; page_foot(); exit; }
 ?>
 <h1><?= h($tpl['titolo']) ?></h1>

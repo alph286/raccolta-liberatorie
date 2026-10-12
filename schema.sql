@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS consents (
   pdf_file VARCHAR(80) NOT NULL DEFAULT '',
   mail_inviata TINYINT(1) NOT NULL DEFAULT 0,
   ip VARCHAR(45) NOT NULL,
+  operatore VARCHAR(60) NULL,
   user_agent VARCHAR(255) NOT NULL,
   created_at DATETIME NOT NULL,
   INDEX (cognome, nome),

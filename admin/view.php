@@ -17,6 +17,7 @@ page_head('Liberatoria ' . $c['id']);
    <a class="btn secondary" href="index.php">&laquo; Elenco</a></p>
 <div class="card"><dl>
 <dt>Accettata il</dt><dd><?= h(date('d/m/Y H:i:s', strtotime($c['created_at']))) ?> (IP <?= h($c['ip']) ?>)</dd>
+<dt>Raccolta da</dt><dd><?= h($c['operatore']) ?></dd>
 <dt>Modello</dt><dd><?= h($c['template_titolo']) ?> v<?= (int)$c['template_versione'] ?></dd>
 <dt>Nome</dt><dd><?= h($c['cognome'] . ' ' . $c['nome']) ?></dd>
 <dt>Nato/a</dt><dd><?= h($c['luogo_nascita']) ?> il <?= h(it_date($c['data_nascita'])) ?></dd>

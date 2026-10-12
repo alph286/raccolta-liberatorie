@@ -1,6 +1,7 @@
 <?php
 function admin_nav(array $u): void { ?>
 <nav class="top">
+  <a href="<?= h(base_url()) ?>">+ Nuova liberatoria</a>
   <a href="index.php">Liberatorie</a>
   <a href="templates.php">Modelli</a>
   <a href="users.php">Utenti</a>

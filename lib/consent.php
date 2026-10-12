@@ -73,7 +73,7 @@ function decode_signature(string $dataUrl): ?array {
 }
 
 /** Salva la liberatoria, genera PDF e invia le mail. Ritorna il token. */
-function save_consent(array $tpl, array $d, string $png, string $jpeg): string {
+function save_consent(array $tpl, array $d, string $png, string $jpeg, string $operatore = ''): string {
     $token = bin2hex(random_bytes(16));
     $pdo = db();
     $firmaFile = $token . '.png';
@@ -82,7 +82,7 @@ function save_consent(array $tpl, array $d, string $png, string $jpeg): string {
         'token' => $token, 'template_id' => $tpl['id'], 'template_titolo' => $tpl['titolo'],
         'template_versione' => $tpl['versione'], 'testo_snapshot' => $tpl['testo'],
         'testo_hash' => hash('sha256', $tpl['testo']), 'firma_file' => $firmaFile,
-        'ip' => client_ip(), 'user_agent' => mb_substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255),
+        'ip' => client_ip(), 'operatore' => $operatore !== '' ? $operatore : null, 'user_agent' => mb_substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255),
         'created_at' => date('Y-m-d H:i:s'),
     ];
     $cols = array_keys($row);

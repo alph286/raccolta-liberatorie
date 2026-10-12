@@ -15,7 +15,8 @@ page_head('Grazie');
   <h1>Grazie, <?= h($row['nome']) ?>!</h1>
   <p>La tua liberatoria (n. <?= (int)$row['id'] ?>) e' stata registrata.</p>
   <?php if ($row['mail_inviata']): ?><p>Ti abbiamo inviato una copia firmata via email.</p><?php endif; ?>
-  <p><a class="btn" href="<?= h(base_url()) ?>pdf.php?r=<?= h($tok) ?>">Scarica la copia PDF</a></p>
+  <p><a class="btn secondary" href="<?= h(base_url()) ?>">Nuova liberatoria</a>
+     <a class="btn" href="<?= h(base_url()) ?>pdf.php?r=<?= h($tok) ?>">Scarica la copia PDF</a></p>
 <?php else: ?>
   <h1>Pagina non trovata</h1>
 <?php endif; ?>

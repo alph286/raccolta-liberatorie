@@ -4,13 +4,15 @@ require_once __DIR__ . '/bootstrap.php';
 
 function admin_user(): ?array {
     if (empty($_SESSION['admin_id'])) return null;
+    if (time() - (int)($_SESSION['last_seen'] ?? 0) > 8 * 3600) { unset($_SESSION['admin_id'], $_SESSION['last_seen']); return null; }
+    $_SESSION['last_seen'] = time();
     $st = db()->prepare('SELECT id, username FROM admins WHERE id = ?');
     $st->execute([$_SESSION['admin_id']]);
     return $st->fetch() ?: null;
 }
-function require_admin(): array {
+function require_admin(string $loginQuery = ''): array {
     $u = admin_user();
-    if (!$u) { header('Location: ' . base_url() . 'admin/login.php'); exit; }
+    if (!$u) { header('Location: ' . base_url() . 'admin/login.php' . $loginQuery); exit; }
     return $u;
 }
 function login_blocked(): bool {
@@ -33,5 +35,6 @@ function login_try(string $user, string $pass): bool {
     db()->prepare('DELETE FROM login_attempts WHERE ip = ?')->execute([client_ip()]);
     session_regenerate_id(true);
     $_SESSION['admin_id'] = (int)$row['id'];
+    $_SESSION['last_seen'] = time();
     return true;
 }

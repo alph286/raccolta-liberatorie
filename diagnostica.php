@@ -20,6 +20,10 @@ try {
     ok(true, 'connessione al database');
     $t = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
     ok(in_array('consents', $t, true), 'tabelle create (' . count($t) . ' trovate)', 'esegui install.php');
+    if (in_array('consents', $t, true)) {
+        $has = (int)$pdo->query("SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'consents' AND COLUMN_NAME = 'operatore'")->fetchColumn();
+        ok($has === 1, 'colonna operatore presente', 'apri admin/migra.php da loggato');
+    }
 } catch (Throwable $e) {
     ok(false, 'connessione al database', $e->getMessage());
 }
